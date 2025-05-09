@@ -15,51 +15,51 @@ import {
   Twitter,
   Facebook,
   Youtube,
+  Shirt,
+  Grid,
 } from "lucide-react";
 import { CartSheet } from "@/components/cart-sheet";
 import { useCart, useFavorites } from "@/lib/store";
 import { AuthHeader } from "@/components/auth-header";
-
-// Sample product data
-const products = [
-  {
-    id: "prod-1",
-    name: "Slim Fit Cotton Shirt",
-    price: "$59.99",
-    image: "/placeholder.svg?height=400&width=300",
-    rating: 4.8,
-  },
-  {
-    id: "prod-2",
-    name: "Premium Denim Jeans",
-    price: "$89.99",
-    image: "/placeholder.svg?height=400&width=300",
-    rating: 4.7,
-  },
-  {
-    id: "prod-3",
-    name: "Casual Knit Sweater",
-    price: "$69.99",
-    image: "/placeholder.svg?height=400&width=300",
-    rating: 4.9,
-  },
-  {
-    id: "prod-4",
-    name: "Leather Crossbody Bag",
-    price: "$129.99",
-    image: "/placeholder.svg?height=400&width=300",
-    rating: 4.6,
-  },
-];
+import { useQuery } from "@tanstack/react-query";
 
 export default function Home() {
-  console.log("123");
   const { addItem: addToCart } = useCart();
   const {
     addItem: addToFavorites,
     removeItem: removeFromFavorites,
     isFavorite,
   } = useFavorites();
+
+  const {
+    data: products,
+    error: productsError,
+    isLoading: productsIsLoading,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: async () => {
+      const response = await fetch("/api/products/limited?limit=12");
+      if (!response.ok) {
+        throw new Error("Failed to fetch products");
+      }
+      return response.json();
+    },
+  });
+
+  const {
+    data: categories,
+    error: categoriesError,
+    isLoading: categoriesIsLoading,
+  } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const response = await fetch("/api/categories/limited?limit=4");
+      if (!response.ok) {
+        throw new Error("Failed to fetch categories");
+      }
+      return response.json();
+    },
+  });
 
   const handleToggleFavorite = (product: (typeof products)[0]) => {
     if (isFavorite(product.id)) {
@@ -72,6 +72,16 @@ export default function Home() {
   const handleAddToCart = (product: (typeof products)[0]) => {
     addToCart(product);
   };
+
+  if (productsIsLoading || categoriesIsLoading) return <div>Loading...</div>;
+  if (productsError instanceof Error || categoriesError instanceof Error)
+    return (
+      <div>
+        {productsError?.message} <br /> {categoriesError?.message}
+      </div>
+    );
+
+  console.log(products);
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -150,8 +160,8 @@ export default function Home() {
         <section className="relative grid place-items-center">
           <div className="container flex flex-col items-center justify-between gap-4 py-12 md:flex-row md:py-24 lg:py-32">
             <div className="flex flex-col items-start space-y-4 md:max-w-[50%]">
-              <div className="rounded-full bg-muted px-4 py-1.5 text-sm font-medium">
-                New Collection 2024
+              <div className="rounded-full bg-lime-400/20 text-lime-400 px-4 py-1.5 text-sm font-medium">
+                New Collection 2025
               </div>
               <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
                 Discover Your{" "}
@@ -174,7 +184,7 @@ export default function Home() {
             </div>
             <div className="relative mt-8 aspect-square w-full max-w-[500px] md:mt-0">
               <Image
-                src="/placeholder.svg?height=600&width=600"
+                src="https://images.unsplash.com/photo-1551028719-00167b16eac5?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Featured product"
                 width={600}
                 height={600}
@@ -211,44 +221,32 @@ export default function Home() {
               </Link>
             </div>
             <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-6">
-              {[
-                {
-                  name: "Women's Fashion",
-                  image: "/placeholder.svg?height=300&width=300",
-                },
-                {
-                  name: "Men's Collection",
-                  image: "/placeholder.svg?height=300&width=300",
-                },
-                {
-                  name: "Accessories",
-                  image: "/placeholder.svg?height=300&width=300",
-                },
-                {
-                  name: "Footwear",
-                  image: "/placeholder.svg?height=300&width=300",
-                },
-              ].map((category, index) => (
-                <Link
-                  key={index}
-                  href="/categories"
-                  className="group relative aspect-square overflow-hidden rounded-xl"
-                >
-                  <Image
-                    src={category.image || "/placeholder.svg"}
-                    alt={category.name}
-                    width={300}
-                    height={300}
-                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-4">
-                    <h3 className="text-lg font-medium text-white">
-                      {category.name}
-                    </h3>
-                  </div>
-                </Link>
-              ))}
+              {categories.map(
+                (category: (typeof categories)[0], index: number) => {
+                  // const initials = category.name
+                  //   .split(" ")
+                  //   .map((word: string) => word.charAt(0).toUpperCase())
+                  //   .slice(0, 2)
+                  //   .join("");
+
+                  return (
+                    <Link
+                      key={index}
+                      href="/categories"
+                      className="group relative aspect-square overflow-hidden rounded-xl grid place-items-center"
+                    >
+                      {/* <h1 className="text-xl font-bold">{initials}</h1> */}
+                      <Grid className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-120 transition-all" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-4">
+                        <h3 className="text-lg font-medium text-white">
+                          {category.name}
+                        </h3>
+                      </div>
+                    </Link>
+                  );
+                }
+              )}
             </div>
           </div>
         </section>
@@ -268,16 +266,17 @@ export default function Home() {
               </Link>
             </div>
             <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-              {products.map((product) => (
+              {products.map((product: (typeof products)[0]) => (
                 <div key={product.id} className="group relative flex flex-col">
                   <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-muted">
-                    <Image
-                      src={product.image || "/placeholder.svg"}
+                    {/* <Image
+                      src={product.images[0].url || "/placeholder.svg"}
                       alt={product.name}
                       width={300}
                       height={400}
                       className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
+                    /> */}
+                    <Shirt className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-120 transition-all" />
                     <Button
                       variant="secondary"
                       size="icon"
@@ -309,7 +308,7 @@ export default function Home() {
                     </div>
                     <h3 className="mt-1 font-medium">{product.name}</h3>
                     <div className="mt-1 flex items-center justify-between">
-                      <span className="font-bold">{product.price}</span>
+                      <span className="font-bold">{product.price} &#8364;</span>
                       <Button
                         size="sm"
                         variant="ghost"
@@ -458,15 +457,15 @@ export default function Home() {
                     href="#"
                     className="group relative aspect-square overflow-hidden rounded-xl"
                   >
-                    <Image
+                    {/* <Image
                       src={`/placeholder.svg?height=200&width=200`}
                       alt={`Instagram post ${index + 1}`}
                       width={200}
                       height={200}
                       className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
+                    /> */}
                     <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/50">
-                      <Instagram className="h-8 w-8 text-white opacity-0 transition-opacity group-hover:opacity-100" />
+                      <Instagram className="h-8 w-8 text-white transition-all group-hover:scale-120" />
                     </div>
                   </Link>
                 ))}

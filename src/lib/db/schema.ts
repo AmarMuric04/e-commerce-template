@@ -13,7 +13,6 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-// Auth Tables (NextAuth compatible)
 export const users = pgTable("user", {
   id: uuid("id").primaryKey(),
   name: varchar("name", { length: 255 }),
@@ -74,7 +73,6 @@ export const verificationTokens = pgTable(
   })
 );
 
-// E-commerce Tables
 export const categories = pgTable("categories", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),

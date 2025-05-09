@@ -6,6 +6,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { db } from "@/lib/db";
 import * as schema from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { randomUUID } from "crypto";
 
 export const authOptions: NextAuthOptions = {
   adapter: DrizzleAdapter(db, schema),
@@ -119,6 +120,7 @@ export async function createUser(data: {
   return db
     .insert(schema.users)
     .values({
+      id: randomUUID(),
       name: data.name,
       email: data.email,
       password: hashedPassword,

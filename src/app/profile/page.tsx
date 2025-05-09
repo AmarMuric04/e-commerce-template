@@ -34,7 +34,6 @@ import {
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 
-// Mock data for orders
 const orders = [
   {
     id: "ORD-2024-1234",
@@ -188,8 +187,10 @@ export default function ProfilePage() {
                 </AvatarFallback>
               </Avatar>
               <div>
-                <h2 className="text-xl font-bold">{user.name}</h2>
-                <p className="text-sm text-muted-foreground">{user.email}</p>
+                <h2 className="text-xl font-bold">{user?.name}</h2>
+                <p className="text-sm text-muted-foreground truncate max-w-[120px]">
+                  {user?.email}
+                </p>
               </div>
             </div>
 
@@ -291,7 +292,7 @@ export default function ProfilePage() {
                       <Input
                         id="email"
                         type="email"
-                        defaultValue={user.email || ""}
+                        defaultValue={user?.email || ""}
                         className="mt-1"
                       />
                     </div>

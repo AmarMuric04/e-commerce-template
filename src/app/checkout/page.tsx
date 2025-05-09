@@ -1,31 +1,51 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Separator } from "@/components/ui/separator"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { ArrowLeft, CreditCard, Check } from "lucide-react"
-import { useCart } from "@/lib/store"
+import { useState } from "react";
+import Link from "next/link";
+// import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Separator } from "@/components/ui/separator";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { ArrowLeft, CreditCard, Check, Shirt } from "lucide-react";
+import { useCart } from "@/lib/store";
 
 export default function CheckoutPage() {
-  const { items, subtotal, totalItems } = useCart()
-  const [step, setStep] = useState<"shipping" | "payment" | "confirmation">("shipping")
+  const { items, subtotal, totalItems } = useCart();
+  const [step, setStep] = useState<"shipping" | "payment" | "confirmation">(
+    "shipping"
+  );
 
   // Calculate shipping cost (free over $100)
-  const shippingCost = Number.parseFloat(subtotal.replace("$", "")) > 100 ? 0 : 10
+  const shippingCost =
+    Number.parseFloat(subtotal.replace("$", "")) > 100 ? 0 : 10;
 
   // Calculate tax (8%)
-  const taxAmount = (Number.parseFloat(subtotal.replace("$", "")) * 0.08).toFixed(2)
+  const taxAmount = (
+    Number.parseFloat(subtotal.replace("$", "")) * 0.08
+  ).toFixed(2);
 
   // Calculate total with shipping and tax
-  const total = (Number.parseFloat(subtotal.replace("$", "")) + shippingCost + Number.parseFloat(taxAmount)).toFixed(2)
+  const total = (
+    Number.parseFloat(subtotal.replace("$", "")) +
+    shippingCost +
+    Number.parseFloat(taxAmount)
+  ).toFixed(2);
 
   if (items.length === 0) {
     return (
@@ -44,13 +64,16 @@ export default function CheckoutPage() {
           </Button>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="container mx-auto max-w-6xl py-12">
       <div className="mb-8">
-        <Link href="/cart" className="flex items-center text-sm text-muted-foreground hover:text-foreground">
+        <Link
+          href="/cart"
+          className="flex items-center text-sm text-muted-foreground hover:text-foreground"
+        >
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to cart
         </Link>
@@ -65,10 +88,15 @@ export default function CheckoutPage() {
           </div>
           <h2 className="text-2xl font-medium">Order Confirmed!</h2>
           <p className="text-center text-muted-foreground">
-            Thank you for your purchase. Your order has been received and is being processed.
+            Thank you for your purchase. Your order has been received and is
+            being processed.
           </p>
-          <p className="text-center font-medium">Order #: MS-{Math.floor(Math.random() * 10000)}</p>
-          <p className="text-center text-muted-foreground">A confirmation email has been sent to your email address.</p>
+          <p className="text-center font-medium">
+            Order #: MS-{Math.floor(Math.random() * 10000)}
+          </p>
+          <p className="text-center text-muted-foreground">
+            A confirmation email has been sent to your email address.
+          </p>
           <Button asChild size="lg">
             <Link href="/">Continue Shopping</Link>
           </Button>
@@ -80,7 +108,9 @@ export default function CheckoutPage() {
               <div className="p-6">
                 {step === "shipping" ? (
                   <>
-                    <h2 className="text-lg font-medium">Shipping Information</h2>
+                    <h2 className="text-lg font-medium">
+                      Shipping Information
+                    </h2>
                     <div className="mt-6 grid gap-4 sm:grid-cols-2">
                       <div>
                         <Label htmlFor="firstName">First Name</Label>
@@ -151,7 +181,11 @@ export default function CheckoutPage() {
                               Standard Shipping (3-5 business days)
                             </Label>
                           </div>
-                          <span>{shippingCost === 0 ? "Free" : `$${shippingCost.toFixed(2)}`}</span>
+                          <span>
+                            {shippingCost === 0
+                              ? "Free"
+                              : `$${shippingCost.toFixed(2)}`}
+                          </span>
                         </div>
                         <div className="mt-2 flex items-center justify-between rounded-lg border p-4">
                           <div className="flex items-center space-x-2">
@@ -167,11 +201,18 @@ export default function CheckoutPage() {
 
                     <div className="mt-6">
                       <Label htmlFor="notes">Order Notes (Optional)</Label>
-                      <Textarea id="notes" placeholder="Special instructions for delivery" className="mt-1" />
+                      <Textarea
+                        id="notes"
+                        placeholder="Special instructions for delivery"
+                        className="mt-1"
+                      />
                     </div>
 
                     <div className="mt-6">
-                      <Button className="w-full" onClick={() => setStep("payment")}>
+                      <Button
+                        className="w-full"
+                        onClick={() => setStep("payment")}
+                      >
                         Continue to Payment
                       </Button>
                     </div>
@@ -195,16 +236,28 @@ export default function CheckoutPage() {
                             </div>
                             <div>
                               <Label htmlFor="cardNumber">Card Number</Label>
-                              <Input id="cardNumber" className="mt-1" placeholder="•••• •••• •••• ••••" />
+                              <Input
+                                id="cardNumber"
+                                className="mt-1"
+                                placeholder="•••• •••• •••• ••••"
+                              />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                               <div>
                                 <Label htmlFor="expiry">Expiry Date</Label>
-                                <Input id="expiry" className="mt-1" placeholder="MM/YY" />
+                                <Input
+                                  id="expiry"
+                                  className="mt-1"
+                                  placeholder="MM/YY"
+                                />
                               </div>
                               <div>
                                 <Label htmlFor="cvc">CVC</Label>
-                                <Input id="cvc" className="mt-1" placeholder="•••" />
+                                <Input
+                                  id="cvc"
+                                  className="mt-1"
+                                  placeholder="•••"
+                                />
                               </div>
                             </div>
                           </div>
@@ -217,7 +270,8 @@ export default function CheckoutPage() {
                             </Label>
                           </div>
                           <p className="mt-2 text-sm text-muted-foreground">
-                            You will be redirected to PayPal to complete your purchase.
+                            You will be redirected to PayPal to complete your
+                            purchase.
                           </p>
                         </div>
                         <div className="rounded-lg border p-4">
@@ -235,10 +289,17 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className="mt-6 flex gap-3">
-                      <Button variant="outline" className="flex-1" onClick={() => setStep("shipping")}>
+                      <Button
+                        variant="outline"
+                        className="flex-1"
+                        onClick={() => setStep("shipping")}
+                      >
                         Back
                       </Button>
-                      <Button className="flex-1" onClick={() => setStep("confirmation")}>
+                      <Button
+                        className="flex-1"
+                        onClick={() => setStep("confirmation")}
+                      >
                         Place Order
                       </Button>
                     </div>
@@ -261,19 +322,27 @@ export default function CheckoutPage() {
                     <AccordionContent>
                       <div className="space-y-4">
                         {items.map((item) => (
-                          <div key={item.id} className="flex items-center gap-3">
+                          <div
+                            key={item.id}
+                            className="flex items-center gap-3"
+                          >
                             <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border">
-                              <Image
-                                src={item.image || "/placeholder.svg"}
+                              {/* <Image
+                                src={item.images[0].url || "/placeholder.svg"}
                                 alt={item.name}
                                 width={64}
                                 height={64}
                                 className="h-full w-full object-cover"
-                              />
+                              /> */}
+                              <Shirt className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-120 transition-all" />
                             </div>
                             <div className="flex-1">
-                              <h4 className="text-sm font-medium">{item.name}</h4>
-                              <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                              <h4 className="text-sm font-medium">
+                                {item.name}
+                              </h4>
+                              <p className="text-xs text-muted-foreground">
+                                Qty: {item.quantity}
+                              </p>
                             </div>
                             <p className="text-sm font-medium">{item.price}</p>
                           </div>
@@ -292,7 +361,11 @@ export default function CheckoutPage() {
                   </div>
                   <div className="flex justify-between text-sm">
                     <p className="text-muted-foreground">Shipping</p>
-                    <p>{shippingCost === 0 ? "Free" : `$${shippingCost.toFixed(2)}`}</p>
+                    <p>
+                      {shippingCost === 0
+                        ? "Free"
+                        : `$${shippingCost.toFixed(2)}`}
+                    </p>
                   </div>
                   <div className="flex justify-between text-sm">
                     <p className="text-muted-foreground">Tax (8%)</p>
@@ -308,7 +381,8 @@ export default function CheckoutPage() {
                 <div className="mt-6 rounded-lg bg-muted p-4 text-sm">
                   <p className="font-medium">Secure Checkout</p>
                   <p className="mt-1 text-muted-foreground">
-                    Your payment information is processed securely. We do not store credit card details.
+                    Your payment information is processed securely. We do not
+                    store credit card details.
                   </p>
                 </div>
               </div>
@@ -317,5 +391,5 @@ export default function CheckoutPage() {
         </div>
       )}
     </div>
-  )
+  );
 }

@@ -69,10 +69,10 @@ export function CartSheet() {
             <div className="flex-1 overflow-y-auto py-4">
               <div className="space-y-4">
                 {items.map((item) => (
-                  <div key={item.id} className="flex items-start gap-4">
+                  <div key={item.id} className="flex items-start gap-4 px-2">
                     <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border">
                       <Image
-                        src={item.image || "/placeholder.svg"}
+                        src={item.images[0].url || "/placeholder.svg"}
                         alt={item.name}
                         width={80}
                         height={80}
@@ -130,22 +130,22 @@ export function CartSheet() {
 
             <div className="space-y-4 border-t pt-4">
               <div className="space-y-2">
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-sm px-2">
                   <span>Subtotal</span>
                   <span>{subtotal}</span>
                 </div>
-                <div className="flex justify-between text-sm">
+                <div className="flex justify-between text-sm px-2">
                   <span>Shipping</span>
                   <span>Calculated at checkout</span>
                 </div>
                 <Separator />
-                <div className="flex justify-between font-medium">
+                <div className="flex justify-between font-medium px-2">
                   <span>Total</span>
                   <span>{subtotal}</span>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 px-2">
                 <Button asChild onClick={() => setOpen(false)}>
                   <Link href="/cart" className="w-full">
                     View Cart

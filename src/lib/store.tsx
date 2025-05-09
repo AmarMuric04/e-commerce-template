@@ -9,7 +9,10 @@ export type CartItem = {
   id: string;
   name: string;
   price: string;
-  image: string;
+  images: {
+    url: string;
+    alt: string;
+  }[];
   quantity: number;
 };
 
@@ -17,7 +20,10 @@ export type FavoriteItem = {
   id: string;
   name: string;
   price: string;
-  image: string;
+  images: {
+    url: string;
+    alt: string;
+  }[];
   rating: number;
 };
 
