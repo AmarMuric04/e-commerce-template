@@ -1,102 +1,654 @@
+"use client";
+
+import Link from "next/link";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  ShoppingBag,
+  Search,
+  Heart,
+  ChevronRight,
+  Star,
+  ArrowRight,
+  Instagram,
+  Twitter,
+  Facebook,
+  Youtube,
+} from "lucide-react";
+import { CartSheet } from "@/components/cart-sheet";
+import { useCart, useFavorites } from "@/lib/store";
+import { AuthHeader } from "@/components/auth-header";
+
+// Sample product data
+const products = [
+  {
+    id: "prod-1",
+    name: "Slim Fit Cotton Shirt",
+    price: "$59.99",
+    image: "/placeholder.svg?height=400&width=300",
+    rating: 4.8,
+  },
+  {
+    id: "prod-2",
+    name: "Premium Denim Jeans",
+    price: "$89.99",
+    image: "/placeholder.svg?height=400&width=300",
+    rating: 4.7,
+  },
+  {
+    id: "prod-3",
+    name: "Casual Knit Sweater",
+    price: "$69.99",
+    image: "/placeholder.svg?height=400&width=300",
+    rating: 4.9,
+  },
+  {
+    id: "prod-4",
+    name: "Leather Crossbody Bag",
+    price: "$129.99",
+    image: "/placeholder.svg?height=400&width=300",
+    rating: 4.6,
+  },
+];
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  console.log("123");
+  const { addItem: addToCart } = useCart();
+  const {
+    addItem: addToFavorites,
+    removeItem: removeFromFavorites,
+    isFavorite,
+  } = useFavorites();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const handleToggleFavorite = (product: (typeof products)[0]) => {
+    if (isFavorite(product.id)) {
+      removeFromFavorites(product.id);
+    } else {
+      addToFavorites(product);
+    }
+  };
+
+  const handleAddToCart = (product: (typeof products)[0]) => {
+    addToCart(product);
+  };
+
+  return (
+    <div className="flex min-h-screen flex-col">
+      {/* Header */}
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 grid place-items-center">
+        <div className="container flex h-16 items-center justify-between">
+          <div className="flex items-center gap-6 md:gap-10">
+            <Link href="/" className="flex items-center space-x-2">
+              <ShoppingBag className="h-6 w-6" />
+              <span className="hidden font-bold sm:inline-block">
+                ModernShop
+              </span>
+            </Link>
+            <nav className="hidden gap-6 md:flex">
+              <Link
+                href="/"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Home
+              </Link>
+              <Link
+                href="/shop"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              >
+                Shop
+              </Link>
+              <Link
+                href="/categories"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              >
+                Categories
+              </Link>
+              <Link
+                href="/about"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              >
+                About
+              </Link>
+              <Link
+                href="/contact"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              >
+                Contact
+              </Link>
+            </nav>
+          </div>
+          <div className="flex items-center gap-4">
+            <div className="hidden sm:flex">
+              <div className="relative">
+                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder="Search products..."
+                  className="w-[200px] pl-8 md:w-[250px] lg:w-[300px]"
+                />
+              </div>
+            </div>
+            <AuthHeader />
+            <Link href="/favorites">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-muted-foreground"
+              >
+                <Heart className="h-5 w-5" />
+                <span className="sr-only">Wishlist</span>
+              </Button>
+            </Link>
+            <CartSheet />
+          </div>
         </div>
+      </header>
+
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative grid place-items-center">
+          <div className="container flex flex-col items-center justify-between gap-4 py-12 md:flex-row md:py-24 lg:py-32">
+            <div className="flex flex-col items-start space-y-4 md:max-w-[50%]">
+              <div className="rounded-full bg-muted px-4 py-1.5 text-sm font-medium">
+                New Collection 2024
+              </div>
+              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+                Discover Your{" "}
+                <span className="text-primary">Perfect Style</span>
+              </h1>
+              <p className="text-xl text-muted-foreground">
+                Explore our curated collection of premium fashion items designed
+                for the modern lifestyle.
+              </p>
+              <div className="flex flex-col gap-2 min-[400px]:flex-row">
+                <Button size="lg" className="gap-1" asChild>
+                  <Link href="/shop">
+                    Shop Now <ChevronRight className="h-4 w-4" />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                  <Link href="/categories">Explore Collections</Link>
+                </Button>
+              </div>
+            </div>
+            <div className="relative mt-8 aspect-square w-full max-w-[500px] md:mt-0">
+              <Image
+                src="/placeholder.svg?height=600&width=600"
+                alt="Featured product"
+                width={600}
+                height={600}
+                className="rounded-xl object-cover"
+                priority
+              />
+              <div className="absolute bottom-4 left-4 right-4 rounded-lg bg-background/80 p-4 backdrop-blur-sm">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="font-medium">Premium Leather Jacket</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Limited Edition
+                    </p>
+                  </div>
+                  <div className="text-lg font-bold text-primary">$299.99</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Categories Section */}
+        <section className="bg-muted py-12 md:py-16 grid place-items-center">
+          <div className="container">
+            <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Shop by Category
+              </h2>
+              <Link
+                href="/categories"
+                className="flex items-center text-sm font-medium text-primary"
+              >
+                View All Categories <ChevronRight className="ml-1 h-4 w-4" />
+              </Link>
+            </div>
+            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-6">
+              {[
+                {
+                  name: "Women's Fashion",
+                  image: "/placeholder.svg?height=300&width=300",
+                },
+                {
+                  name: "Men's Collection",
+                  image: "/placeholder.svg?height=300&width=300",
+                },
+                {
+                  name: "Accessories",
+                  image: "/placeholder.svg?height=300&width=300",
+                },
+                {
+                  name: "Footwear",
+                  image: "/placeholder.svg?height=300&width=300",
+                },
+              ].map((category, index) => (
+                <Link
+                  key={index}
+                  href="/categories"
+                  className="group relative aspect-square overflow-hidden rounded-xl"
+                >
+                  <Image
+                    src={category.image || "/placeholder.svg"}
+                    alt={category.name}
+                    width={300}
+                    height={300}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-lg font-medium text-white">
+                      {category.name}
+                    </h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Featured Products */}
+        <section className="py-12 md:py-16 grid place-items-center">
+          <div className="container">
+            <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Featured Products
+              </h2>
+              <Link
+                href="/shop"
+                className="flex items-center text-sm font-medium text-primary"
+              >
+                View All Products <ChevronRight className="ml-1 h-4 w-4" />
+              </Link>
+            </div>
+            <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {products.map((product) => (
+                <div key={product.id} className="group relative flex flex-col">
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-muted">
+                    <Image
+                      src={product.image || "/placeholder.svg"}
+                      alt={product.name}
+                      width={300}
+                      height={400}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <Button
+                      variant="secondary"
+                      size="icon"
+                      className="absolute right-4 top-4 opacity-100 transition-opacity"
+                      onClick={() => handleToggleFavorite(product)}
+                    >
+                      <Heart
+                        className={`h-4 w-4 ${
+                          isFavorite(product.id)
+                            ? "fill-primary text-primary"
+                            : ""
+                        }`}
+                      />
+                      <span className="sr-only">
+                        {isFavorite(product.id)
+                          ? "Remove from wishlist"
+                          : "Add to wishlist"}
+                      </span>
+                    </Button>
+                  </div>
+                  <div className="mt-4 flex flex-col">
+                    <div className="flex items-center">
+                      <div className="flex items-center">
+                        <Star className="h-4 w-4 fill-primary text-primary" />
+                        <span className="ml-1 text-sm font-medium">
+                          {product.rating}
+                        </span>
+                      </div>
+                    </div>
+                    <h3 className="mt-1 font-medium">{product.name}</h3>
+                    <div className="mt-1 flex items-center justify-between">
+                      <span className="font-bold">{product.price}</span>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="h-8 w-8 p-0"
+                        onClick={() => handleAddToCart(product)}
+                      >
+                        <ShoppingBag className="h-4 w-4" />
+                        <span className="sr-only">Add to cart</span>
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Promotion Banner */}
+        <section className="bg-primary py-12 md:py-16 grid place-items-center">
+          <div className="container">
+            <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+              <div className="flex flex-col items-start space-y-4 text-primary-foreground md:max-w-[50%]">
+                <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
+                  Summer Sale Up To 50% Off
+                </h2>
+                <p className="text-lg opacity-90">
+                  Limited time offer on our summer collection. Refresh your
+                  wardrobe with the latest trends.
+                </p>
+                <Button variant="secondary" size="lg" asChild>
+                  <Link href="/shop?sale=true">Shop the Sale</Link>
+                </Button>
+              </div>
+              <div className="relative aspect-video w-full max-w-[500px] overflow-hidden rounded-xl md:aspect-square">
+                <Image
+                  src="/placeholder.svg?height=500&width=500"
+                  alt="Summer sale"
+                  width={500}
+                  height={500}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="py-12 md:py-16 grid place-items-center">
+          <div className="container">
+            <h2 className="text-center text-3xl font-bold tracking-tight">
+              What Our Customers Say
+            </h2>
+            <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {[
+                {
+                  name: "Sarah Johnson",
+                  text: "The quality of the clothes is exceptional. I've been shopping here for years and have never been disappointed.",
+                  rating: 5,
+                },
+                {
+                  name: "Michael Chen",
+                  text: "Fast shipping and the fit is perfect. The customer service team was very helpful when I needed to exchange an item.",
+                  rating: 5,
+                },
+                {
+                  name: "Emma Williams",
+                  text: "Love the new collection! The designs are modern and the fabrics are so comfortable. Will definitely be ordering more.",
+                  rating: 4,
+                },
+              ].map((testimonial, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col rounded-xl border bg-card p-6 text-card-foreground shadow"
+                >
+                  <div className="flex items-center gap-1">
+                    {Array(5)
+                      .fill(null)
+                      .map((_, i) => (
+                        <Star
+                          key={i}
+                          className={`h-4 w-4 ${
+                            i < testimonial.rating
+                              ? "fill-primary text-primary"
+                              : "fill-muted text-muted"
+                          }`}
+                        />
+                      ))}
+                  </div>
+                  <blockquote className="mt-4 flex-1">
+                    <p className="text-muted-foreground">
+                      &quot;{testimonial.text}&quot;
+                    </p>
+                  </blockquote>
+                  <div className="mt-4 font-medium">{testimonial.name}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Newsletter */}
+        <section className="bg-muted py-12 md:py-16 grid place-items-center">
+          <div className="container">
+            <div className="mx-auto max-w-[600px] text-center">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Join Our Newsletter
+              </h2>
+              <p className="mt-2 text-muted-foreground">
+                Subscribe to get special offers, free giveaways, and
+                once-in-a-lifetime deals.
+              </p>
+              <div className="mt-6 flex flex-col gap-2 sm:flex-row">
+                <Input
+                  type="email"
+                  placeholder="Enter your email"
+                  className="flex-1"
+                />
+                <Button type="submit" className="gap-1">
+                  Subscribe <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Instagram Feed */}
+        <section className="py-12 md:py-16 grid place-items-center">
+          <div className="container">
+            <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+              <h2 className="text-3xl font-bold tracking-tight">
+                Follow Us on Instagram
+              </h2>
+              <Link
+                href="#"
+                className="flex items-center text-sm font-medium text-primary"
+              >
+                @modernshop <Instagram className="ml-1 h-4 w-4" />
+              </Link>
+            </div>
+            <div className="mt-8 grid grid-cols-2 gap-4 md:grid-cols-4 lg:grid-cols-6">
+              {Array(6)
+                .fill(null)
+                .map((_, index) => (
+                  <Link
+                    key={index}
+                    href="#"
+                    className="group relative aspect-square overflow-hidden rounded-xl"
+                  >
+                    <Image
+                      src={`/placeholder.svg?height=200&width=200`}
+                      alt={`Instagram post ${index + 1}`}
+                      width={200}
+                      height={200}
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/50">
+                      <Instagram className="h-8 w-8 text-white opacity-0 transition-opacity group-hover:opacity-100" />
+                    </div>
+                  </Link>
+                ))}
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="border-t bg-background grid place-items-center">
+        <div className="container py-12 md:py-16">
+          <div className="grid gap-8 sm:grid-cols-2 md:grid-cols-4">
+            <div>
+              <div className="flex items-center space-x-2">
+                <ShoppingBag className="h-6 w-6" />
+                <span className="font-bold">ModernShop</span>
+              </div>
+              <p className="mt-4 text-sm text-muted-foreground">
+                Curated fashion for the modern lifestyle. Quality products that
+                stand the test of time.
+              </p>
+              <div className="mt-4 flex space-x-3">
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Facebook className="h-4 w-4" />
+                  <span className="sr-only">Facebook</span>
+                </Button>
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Instagram className="h-4 w-4" />
+                  <span className="sr-only">Instagram</span>
+                </Button>
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Twitter className="h-4 w-4" />
+                  <span className="sr-only">Twitter</span>
+                </Button>
+                <Button variant="ghost" size="icon" className="h-8 w-8">
+                  <Youtube className="h-4 w-4" />
+                  <span className="sr-only">YouTube</span>
+                </Button>
+              </div>
+            </div>
+            <div>
+              <h3 className="text-lg font-medium">Shop</h3>
+              <nav className="mt-4 flex flex-col space-y-2">
+                <Link
+                  href="/shop"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  All Products
+                </Link>
+                <Link
+                  href="/shop?collection=new-arrivals"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  New Arrivals
+                </Link>
+                <Link
+                  href="/shop?collection=bestsellers"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Best Sellers
+                </Link>
+                <Link
+                  href="/shop?sale=true"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Sale
+                </Link>
+                <Link
+                  href="/shop?collection=gift-cards"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Gift Cards
+                </Link>
+              </nav>
+            </div>
+            <div>
+              <h3 className="text-lg font-medium">Company</h3>
+              <nav className="mt-4 flex flex-col space-y-2">
+                <Link
+                  href="/about"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  About Us
+                </Link>
+                <Link
+                  href="/about#careers"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Careers
+                </Link>
+                <Link
+                  href="/contact"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Store Locations
+                </Link>
+                <Link
+                  href="/blog"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Our Blog
+                </Link>
+                <Link
+                  href="/reviews"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Reviews
+                </Link>
+              </nav>
+            </div>
+            <div>
+              <h3 className="text-lg font-medium">Customer Service</h3>
+              <nav className="mt-4 flex flex-col space-y-2">
+                <Link
+                  href="/contact"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Contact Us
+                </Link>
+                <Link
+                  href="/shipping"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Shipping & Returns
+                </Link>
+                <Link
+                  href="/faq"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  FAQs
+                </Link>
+                <Link
+                  href="/size-guide"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Size Guide
+                </Link>
+                <Link
+                  href="/privacy"
+                  className="text-sm text-muted-foreground hover:text-foreground"
+                >
+                  Privacy Policy
+                </Link>
+              </nav>
+            </div>
+          </div>
+          <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t pt-8 md:flex-row">
+            <p className="text-sm text-muted-foreground">
+              © {new Date().getFullYear()} ModernShop. All rights reserved.
+            </p>
+            <div className="flex items-center space-x-4">
+              <Image
+                src="/placeholder.svg?height=30&width=50"
+                alt="Visa"
+                width={50}
+                height={30}
+                className="h-8 w-auto"
+              />
+              <Image
+                src="/placeholder.svg?height=30&width=50"
+                alt="Mastercard"
+                width={50}
+                height={30}
+                className="h-8 w-auto"
+              />
+              <Image
+                src="/placeholder.svg?height=30&width=50"
+                alt="PayPal"
+                width={50}
+                height={30}
+                className="h-8 w-auto"
+              />
+              <Image
+                src="/placeholder.svg?height=30&width=50"
+                alt="Apple Pay"
+                width={50}
+                height={30}
+                className="h-8 w-auto"
+              />
+            </div>
+          </div>
+        </div>
       </footer>
     </div>
   );
