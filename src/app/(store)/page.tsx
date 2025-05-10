@@ -79,7 +79,6 @@ export default function Home() {
 
   return (
     <main className="flex-1">
-      {/* Hero Section */}
       <section className="relative grid place-items-center">
         <div className="container flex flex-col items-center justify-between gap-4 py-12 md:flex-row md:py-24 lg:py-32">
           <div className="flex flex-col items-start space-y-4 md:max-w-[50%]">
@@ -128,7 +127,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Categories Section */}
       <section className="bg-muted py-12 md:py-16 grid place-items-center">
         <div className="container">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -173,7 +171,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Products */}
       <section className="py-12 md:py-16 grid place-items-center">
         <div className="container">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -248,7 +245,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Promotion Banner */}
       <section className="bg-primary py-12 md:py-16 grid place-items-center">
         <div className="container">
           <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
@@ -277,7 +273,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials */}
       <section className="py-12 md:py-16 grid place-items-center">
         <div className="container">
           <h2 className="text-center text-3xl font-bold tracking-tight">
@@ -331,7 +326,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Newsletter */}
       <section className="bg-muted py-12 md:py-16 grid place-items-center">
         <div className="container">
           <div className="mx-auto max-w-[600px] text-center">
@@ -356,7 +350,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Instagram Feed */}
       <section className="py-12 md:py-16 grid place-items-center">
         <div className="container">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -387,7 +380,7 @@ export default function Home() {
                       className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     /> */}
                   <div className="absolute inset-0 flex items-center justify-center bg-black/0 transition-colors group-hover:bg-black/50">
-                    <Instagram className="h-8 w-8 text-white transition-all group-hover:scale-120" />
+                    <Instagram className="h-8 w-8 transition-all group-hover:scale-120" />
                   </div>
                 </Link>
               ))}

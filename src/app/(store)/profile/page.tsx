@@ -185,7 +185,6 @@ export default function ProfilePage() {
       </div>
 
       <div className="flex flex-col gap-8 md:flex-row">
-        {/* Sidebar */}
         <div className="md:w-1/4">
           <div className="rounded-xl border bg-card p-6">
             <div className="flex items-center gap-4">
@@ -278,9 +277,7 @@ export default function ProfilePage() {
           </div>
         </div>
 
-        {/* Main Content */}
         <div className="flex-1">
-          {/* Account Information */}
           {activeTab === "account" && (
             <div>
               <h1 className="text-2xl font-bold">Account Information</h1>
@@ -379,7 +376,6 @@ export default function ProfilePage() {
             </div>
           )}
 
-          {/* Orders */}
           {activeTab === "orders" && (
             <div>
               <h1 className="text-2xl font-bold">Your Orders</h1>
@@ -465,7 +461,6 @@ export default function ProfilePage() {
             </div>
           )}
 
-          {/* Addresses */}
           {activeTab === "addresses" && (
             <div>
               <div className="flex items-center justify-between">
@@ -531,7 +526,6 @@ export default function ProfilePage() {
             </div>
           )}
 
-          {/* Payment Methods */}
           {activeTab === "payment" && (
             <div>
               <div className="flex items-center justify-between">
@@ -593,7 +587,6 @@ export default function ProfilePage() {
             </div>
           )}
 
-          {/* Notifications */}
           {activeTab === "notifications" && (
             <div>
               <h1 className="text-2xl font-bold">Notification Settings</h1>
@@ -680,7 +673,6 @@ export default function ProfilePage() {
             </div>
           )}
 
-          {/* Security */}
           {activeTab === "security" && (
             <div>
               <h1 className="text-2xl font-bold">Security Settings</h1>

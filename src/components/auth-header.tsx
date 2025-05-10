@@ -33,10 +33,10 @@ export function AuthHeader() {
     return (
       <div className="flex items-center gap-2">
         <Button variant="ghost" size="sm" asChild>
-          <Link href="/auth/login">Login</Link>
+          <Link href="/login">Login</Link>
         </Button>
         <Button size="sm" asChild>
-          <Link href="/auth/register">Register</Link>
+          <Link href="/register">Register</Link>
         </Button>
       </div>
     );

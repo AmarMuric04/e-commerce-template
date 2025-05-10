@@ -236,7 +236,6 @@ export default function CategoriesPage() {
         </p>
       </div>
 
-      {/* Main Categories */}
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
         {categories.map((category) => (
           <Link
@@ -267,7 +266,6 @@ export default function CategoriesPage() {
         ))}
       </div>
 
-      {/* Category Tabs */}
       <div className="mt-20">
         <h2 className="mb-8 text-center text-3xl font-bold">
           Explore Categories
@@ -355,7 +353,6 @@ export default function CategoriesPage() {
         </Tabs>
       </div>
 
-      {/* Collections */}
       <div className="mt-20">
         <h2 className="mb-8 text-center text-3xl font-bold">
           Featured Collections
@@ -394,7 +391,6 @@ export default function CategoriesPage() {
         </div>
       </div>
 
-      {/* Seasonal Highlight */}
       <div className="mt-20">
         <div className="relative overflow-hidden rounded-xl">
           {/* <Image
@@ -422,7 +418,6 @@ export default function CategoriesPage() {
         </div>
       </div>
 
-      {/* Category Grid */}
       <div className="mt-20">
         <h2 className="mb-8 text-center text-3xl font-bold">All Categories</h2>
         <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -455,7 +450,6 @@ export default function CategoriesPage() {
         </div>
       </div>
 
-      {/* CTA */}
       <div className="mt-20 rounded-xl bg-muted p-8 text-center md:p-12">
         <h2 className="text-2xl font-bold md:text-3xl">
           {"Can't"} Find What {"You're"} Looking For?

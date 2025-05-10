@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import {
   ShoppingBag,
   X,
@@ -10,6 +10,7 @@ import {
   Minus,
   ArrowRight,
   ShoppingCart,
+  Shirt,
 } from "lucide-react";
 import {
   Sheet,
@@ -70,14 +71,15 @@ export function CartSheet() {
               <div className="space-y-4">
                 {items.map((item) => (
                   <div key={item.id} className="flex items-start gap-4 px-2">
-                    <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border">
-                      <Image
+                    <div className="h-20 w-20 flex-shrink-0 overflow-hidden rounded-md border grid place-items-center">
+                      {/* <Image
                         src={item.images[0].url || "/placeholder.svg"}
                         alt={item.name}
                         width={80}
                         height={80}
                         className="h-full w-full object-cover"
-                      />
+                      /> */}
+                      <Shirt className="group-hover:scale-120 transition-all" />
                     </div>
                     <div className="flex flex-1 flex-col">
                       <div className="flex justify-between">

@@ -19,7 +19,6 @@ import {
 export default function AboutPage() {
   return (
     <div className="flex min-h-screen flex-col">
-      {/* Hero Section */}
       <section className="relative">
         <div className="absolute inset-0 z-0">
           {/* <Image
@@ -69,7 +68,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Mission & Values */}
       <section className="bg-muted py-16 md:py-24">
         <div className="container mx-auto max-w-6xl">
           <div className="grid gap-12 md:grid-cols-2">
@@ -148,7 +146,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Our Story Timeline */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-center text-3xl font-bold tracking-tight">
@@ -231,7 +228,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
       <section className="bg-muted py-16 md:py-24">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-center text-3xl font-bold tracking-tight">
@@ -307,7 +303,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Sustainability Section */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto max-w-6xl">
           <div className="grid gap-12 md:grid-cols-2">
@@ -364,7 +359,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Testimonials */}
       <section className="bg-muted py-16 md:py-24">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-center text-3xl font-bold tracking-tight">
@@ -432,7 +426,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Partners & Brands */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto max-w-6xl">
           <h2 className="text-center text-3xl font-bold tracking-tight">
@@ -467,7 +460,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="bg-primary py-16 text-primary-foreground md:py-24">
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col items-center text-center">
@@ -498,7 +490,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Footer */}
       <Separator />
     </div>
   );

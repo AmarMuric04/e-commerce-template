@@ -17,6 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { PropsWithChildren } from "react";
 import { usePathname } from "next/navigation";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default function StoreLayout({ children }: PropsWithChildren) {
   const pathname = usePathname();
@@ -95,6 +96,7 @@ export default function StoreLayout({ children }: PropsWithChildren) {
               </div>
             </div>
             <AuthHeader />
+            <ModeToggle />
             <Link href="/favorites">
               <Button
                 variant="ghost"

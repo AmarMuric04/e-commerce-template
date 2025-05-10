@@ -575,7 +575,6 @@ export default function ShopPage() {
           </div>
         </div>
 
-        {/* Mobile Filters Button */}
         <div className="mb-4 flex items-center justify-between lg:hidden">
           <Button variant="outline" onClick={() => setFiltersOpen(true)}>
             <SlidersHorizontal className="mr-2 h-4 w-4" />
@@ -621,7 +620,6 @@ export default function ShopPage() {
           </div>
         </div>
 
-        {/* Mobile Filters Drawer */}
         {filtersOpen && (
           <div className="fixed inset-0 z-50 flex flex-col bg-background p-6 lg:hidden">
             <div className="flex items-center justify-between">
@@ -831,9 +829,7 @@ export default function ShopPage() {
           </div>
         )}
 
-        {/* Products */}
         <div className="flex-1">
-          {/* Desktop Sort and View Controls */}
           <div className="mb-6 hidden items-center justify-between lg:flex">
             <div>
               <p className="text-sm text-muted-foreground">
@@ -887,7 +883,6 @@ export default function ShopPage() {
             </div>
           </div>
 
-          {/* Products Grid View */}
           {viewMode === "grid" && (
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
               {sortedProducts.map((product) => (
@@ -959,7 +954,6 @@ export default function ShopPage() {
             </div>
           )}
 
-          {/* Products List View */}
           {viewMode === "list" && (
             <div className="space-y-6">
               {sortedProducts.map((product) => (
@@ -1054,7 +1048,6 @@ export default function ShopPage() {
             </div>
           )}
 
-          {/* Pagination */}
           {sortedProducts.length > 0 && (
             <div className="mt-12 flex justify-center">
               <nav className="flex items-center gap-1">
@@ -1085,7 +1078,6 @@ export default function ShopPage() {
             </div>
           )}
 
-          {/* No Products Found */}
           {sortedProducts.length === 0 && (
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <div className="rounded-full bg-muted p-6">
