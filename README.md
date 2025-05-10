@@ -23,8 +23,8 @@ This project is **ready-to-use**, modular, and easy to configure. Whether you wa
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/your-repo-name.git
-cd your-repo-name
+git clone https://github.com/amarmuric04/e-commerce-template.git
+cd e-commerce-template
 ```
 
 ### 2. Install Dependencies
