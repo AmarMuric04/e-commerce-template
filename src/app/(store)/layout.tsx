@@ -18,6 +18,7 @@ import Link from "next/link";
 import { PropsWithChildren } from "react";
 import { usePathname } from "next/navigation";
 import { ModeToggle } from "@/components/mode-toggle";
+import { FooterModeToggle } from "@/components/footer-mode-toggle";
 
 export default function StoreLayout({ children }: PropsWithChildren) {
   const pathname = usePathname();
@@ -300,6 +301,7 @@ export default function StoreLayout({ children }: PropsWithChildren) {
                 height={30}
                 className="h-8 w-auto"
               />
+              <FooterModeToggle />
             </div>
           </div>
         </div>
