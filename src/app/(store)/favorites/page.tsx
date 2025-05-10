@@ -3,7 +3,14 @@
 import Link from "next/link";
 // import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ShoppingBag, Heart, ArrowLeft, Star, Shirt } from "lucide-react";
+import {
+  ShoppingBag,
+  Heart,
+  ArrowLeft,
+  Star,
+  Shirt,
+  ChevronRight,
+} from "lucide-react";
 import { useFavorites, useCart } from "@/lib/store";
 
 export default function FavoritesPage() {
@@ -13,6 +20,16 @@ export default function FavoritesPage() {
   if (items.length === 0) {
     return (
       <div className="container mx-auto max-w-6xl py-12">
+        <div className="mb-8 flex flex-wrap items-center gap-2">
+          <Link
+            href="/"
+            className="text-sm text-muted-foreground hover:text-foreground"
+          >
+            Home
+          </Link>
+          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          <span className="font-medium">Favorites</span>
+        </div>
         <h1 className="text-3xl font-bold">Your Wishlist</h1>
         <div className="mt-12 flex flex-col items-center justify-center space-y-6 py-12">
           <div className="rounded-full bg-muted p-8">
@@ -32,6 +49,16 @@ export default function FavoritesPage() {
 
   return (
     <div className="container mx-auto max-w-6xl py-12">
+      <div className="mb-8 flex flex-wrap items-center gap-2">
+        <Link
+          href="/"
+          className="text-sm text-muted-foreground hover:text-foreground"
+        >
+          Home
+        </Link>
+        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+        <span className="font-medium">Favorites</span>
+      </div>
       <div className="mb-8">
         <Link
           href="/"

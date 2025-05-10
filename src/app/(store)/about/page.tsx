@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -11,6 +11,9 @@ import {
   Instagram,
   Twitter,
   Linkedin,
+  Image,
+  User,
+  Group,
 } from "lucide-react";
 
 export default function AboutPage() {
@@ -19,16 +22,26 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="relative">
         <div className="absolute inset-0 z-0">
-          <Image
+          {/* <Image
             src="/placeholder.svg?height=800&width=1600"
             alt="About ModernShop"
             fill
             className="object-cover"
             priority
-          />
+          /> */}
           <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="container relative z-10 mx-auto max-w-6xl py-24 text-white md:py-32">
+          <div className="mb-8 flex flex-wrap items-center gap-2">
+            <Link
+              href="/"
+              className="text-sm text-muted-foreground hover:text-foreground"
+            >
+              Home
+            </Link>
+            <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            <span className="font-medium">About</span>
+          </div>
           <div className="max-w-2xl">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
               Our Story
@@ -192,14 +205,15 @@ export default function AboutPage() {
                 }`}
               >
                 <div className="flex-1">
-                  <div className="overflow-hidden rounded-xl">
-                    <Image
+                  <div className="overflow-hidden rounded-xl grid place-items-center h-[400px] w-full bg-black/20">
+                    {/* <Image
                       src={milestone.image || "/placeholder.svg"}
                       alt={milestone.title}
                       width={400}
                       height={300}
                       className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-                    />
+                    /> */}
+                    <Image />
                   </div>
                 </div>
                 <div className="flex flex-1 flex-col justify-center">
@@ -256,14 +270,15 @@ export default function AboutPage() {
               },
             ].map((member) => (
               <Card key={member.name} className="overflow-hidden">
-                <div className="aspect-square overflow-hidden">
-                  <Image
+                <div className="aspect-square overflow-hidden grid place-items-center">
+                  {/* <Image
                     src={member.image || "/placeholder.svg"}
                     alt={member.name}
                     width={400}
                     height={400}
                     className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-                  />
+                  /> */}
+                  <User />
                 </div>
                 <CardContent className="p-6">
                   <h3 className="font-bold">{member.name}</h3>
@@ -334,14 +349,15 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="flex items-center">
-              <div className="overflow-hidden rounded-xl">
-                <Image
+              <div className="overflow-hidden rounded-xl grid place-items-center w-full bg-black/20 h-full">
+                {/* <Image
                   src="/placeholder.svg?height=600&width=500"
                   alt="Sustainability at ModernShop"
                   width={500}
                   height={600}
                   className="h-full w-full object-cover"
-                />
+                /> */}
+                <Image />
               </div>
             </div>
           </div>
@@ -431,8 +447,11 @@ export default function AboutPage() {
             {Array(6)
               .fill(null)
               .map((_, index) => (
-                <div key={index} className="flex items-center justify-center">
-                  <Image
+                <div
+                  key={index}
+                  className="flex items-center justify-center grid place-items-center"
+                >
+                  {/* <Image
                     src={`/placeholder.svg?height=80&width=160&text=Partner+${
                       index + 1
                     }`}
@@ -440,7 +459,8 @@ export default function AboutPage() {
                     width={160}
                     height={80}
                     className="max-h-16 w-auto grayscale transition-all duration-300 hover:grayscale-0"
-                  />
+                  /> */}
+                  <Group />
                 </div>
               ))}
           </div>

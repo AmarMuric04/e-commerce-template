@@ -4,7 +4,7 @@ import type React from "react";
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -35,6 +35,7 @@ import {
   Twitter,
   Youtube,
   CheckCircle,
+  ChevronRight,
 } from "lucide-react";
 
 export default function ContactPage() {
@@ -56,6 +57,16 @@ export default function ContactPage() {
 
   return (
     <div className="container mx-auto max-w-6xl py-12">
+      <div className="mb-8 flex flex-wrap items-center gap-2">
+        <Link
+          href="/"
+          className="text-sm text-muted-foreground hover:text-foreground"
+        >
+          Home
+        </Link>
+        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+        <span className="font-medium">Contact</span>
+      </div>
       <div className="mb-8">
         <Link
           href="/"
@@ -202,14 +213,8 @@ export default function ContactPage() {
           </p>
 
           <div className="mt-6 overflow-hidden rounded-xl border">
-            <div className="aspect-video w-full bg-muted">
-              <Image
-                src="/placeholder.svg?height=400&width=600"
-                alt="Store location map"
-                width={600}
-                height={400}
-                className="h-full w-full object-cover"
-              />
+            <div className="aspect-video w-full bg-muted grid place-items-center">
+              <MapPin className="h-6 w-6 text-primary" />
             </div>
             <div className="p-6">
               <h3 className="font-medium">ModernShop Flagship Store</h3>

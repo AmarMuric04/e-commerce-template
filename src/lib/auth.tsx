@@ -66,7 +66,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ token, session }) {
       if (token && session.user) {
-        session.user.id = token.id as string;
+        // session.user.id = token.id as string;
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.picture;
@@ -106,7 +106,7 @@ export async function getUserByEmail(email: string) {
 
 export async function getUserById(id: string) {
   return db.query.users.findFirst({
-    where: eq(schema.users.id, Number.parseInt(id)),
+    where: eq(schema.users.id, id),
   });
 }
 

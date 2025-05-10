@@ -32,7 +32,8 @@ export default function ForgotPasswordPage() {
       // For this demo, we'll just simulate a successful request
       await new Promise((resolve) => setTimeout(resolve, 1500));
       setSubmitted(true);
-    } catch (error) {
+    } catch (error: unknown) {
+      console.log(error);
       setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
@@ -60,7 +61,7 @@ export default function ForgotPasswordPage() {
             Forgot your password?
           </h1>
           <p className="text-sm text-muted-foreground">
-            Enter your email address and we'll send you a link to reset your
+            Enter your email address and {"we'll"} send you a link to reset your
             password
           </p>
         </div>

@@ -31,6 +31,7 @@ import {
   Lock,
   ArrowLeft,
   Loader2,
+  ChevronRight,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 
@@ -156,6 +157,23 @@ export default function ProfilePage() {
 
   return (
     <div className="container mx-auto max-w-6xl py-12">
+      <div className="mb-8 flex flex-wrap items-center gap-2">
+        <Link
+          href="/"
+          className="text-sm text-muted-foreground hover:text-foreground"
+        >
+          Home
+        </Link>
+        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+        <span className="font-medium">Profile</span>
+
+        {activeTab && (
+          <>
+            <ChevronRight className="h-4 w-4 text-muted-foreground" />
+            <span className="font-medium capitalize">{activeTab}</span>
+          </>
+        )}
+      </div>
       <div className="mb-8">
         <Link
           href="/"

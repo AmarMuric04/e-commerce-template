@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
+// import Image from "next/image";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Slider } from "@/components/ui/slider";
@@ -33,6 +33,7 @@ import {
   ShoppingBag,
   Star,
   ArrowUpDown,
+  Shirt,
 } from "lucide-react";
 import { useCart, useFavorites } from "@/lib/store";
 
@@ -42,7 +43,12 @@ const products = [
     id: "prod-1",
     name: "Slim Fit Cotton Shirt",
     price: "$59.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.8,
     category: "men",
     subcategory: "shirts",
@@ -55,7 +61,12 @@ const products = [
     id: "prod-2",
     name: "Premium Denim Jeans",
     price: "$89.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.7,
     category: "men",
     subcategory: "pants",
@@ -68,7 +79,12 @@ const products = [
     id: "prod-3",
     name: "Casual Knit Sweater",
     price: "$69.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.9,
     category: "women",
     subcategory: "sweaters",
@@ -81,7 +97,12 @@ const products = [
     id: "prod-4",
     name: "Leather Crossbody Bag",
     price: "$129.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.6,
     category: "accessories",
     subcategory: "bags",
@@ -94,7 +115,12 @@ const products = [
     id: "prod-5",
     name: "Floral Print Dress",
     price: "$79.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.5,
     category: "women",
     subcategory: "dresses",
@@ -107,7 +133,12 @@ const products = [
     id: "prod-6",
     name: "Classic Oxford Shoes",
     price: "$149.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.8,
     category: "men",
     subcategory: "shoes",
@@ -120,7 +151,12 @@ const products = [
     id: "prod-7",
     name: "Wool Blend Coat",
     price: "$199.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.9,
     category: "women",
     subcategory: "outerwear",
@@ -133,7 +169,12 @@ const products = [
     id: "prod-8",
     name: "Stainless Steel Watch",
     price: "$179.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.7,
     category: "accessories",
     subcategory: "watches",
@@ -146,7 +187,12 @@ const products = [
     id: "prod-9",
     name: "Graphic Print T-Shirt",
     price: "$34.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.5,
     category: "men",
     subcategory: "t-shirts",
@@ -159,7 +205,12 @@ const products = [
     id: "prod-10",
     name: "High-Waisted Jeans",
     price: "$79.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.6,
     category: "women",
     subcategory: "pants",
@@ -172,7 +223,12 @@ const products = [
     id: "prod-11",
     name: "Leather Wallet",
     price: "$49.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.8,
     category: "accessories",
     subcategory: "wallets",
@@ -185,7 +241,12 @@ const products = [
     id: "prod-12",
     name: "Polarized Sunglasses",
     price: "$89.99",
-    image: "/placeholder.svg?height=400&width=300",
+    images: [
+      {
+        url: "",
+        alt: "",
+      },
+    ],
     rating: 4.7,
     category: "accessories",
     subcategory: "eyewear",
@@ -354,7 +415,6 @@ export default function ShopPage() {
       </div>
 
       <div className="flex flex-col gap-8 lg:flex-row">
-        {/* Filters - Desktop */}
         <div className="hidden w-64 shrink-0 lg:block">
           <div className="space-y-6">
             <div>
@@ -375,21 +435,21 @@ export default function ShopPage() {
                 {categories.map((category) => (
                   <Accordion key={category.id} type="single" collapsible>
                     <AccordionItem value={category.id} className="border-none">
-                      <AccordionTrigger className="py-1 hover:no-underline">
-                        <Button
-                          variant={
-                            activeCategory === category.id
-                              ? "secondary"
-                              : "ghost"
-                          }
-                          className="w-full justify-start px-2"
+                      <AccordionTrigger className="py-1 hover:no-underline max-w-9/10">
+                        <div
+                          className={`${buttonVariants({
+                            variant:
+                              activeCategory === category.id
+                                ? "secondary"
+                                : "ghost",
+                          })} w-full justify-start px-2 cursor-pointer`}
                           onClick={() => {
                             setActiveCategory(category.id);
                             setActiveSubcategory("");
                           }}
                         >
                           {category.name}
-                        </Button>
+                        </div>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="ml-4 space-y-1">
@@ -833,13 +893,14 @@ export default function ShopPage() {
               {sortedProducts.map((product) => (
                 <div key={product.id} className="group relative flex flex-col">
                   <div className="relative aspect-[3/4] overflow-hidden rounded-xl bg-muted">
-                    <Image
+                    {/* <Image
                       src={product.image || "/placeholder.svg"}
                       alt={product.name}
                       width={300}
                       height={400}
                       className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
+                    /> */}
+                    <Shirt className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-120 transition-all" />
                     <Button
                       variant="secondary"
                       size="icon"
@@ -907,13 +968,14 @@ export default function ShopPage() {
                   className="flex flex-col rounded-xl border bg-card sm:flex-row"
                 >
                   <div className="relative aspect-square w-full overflow-hidden rounded-t-xl bg-muted sm:w-48 sm:rounded-l-xl sm:rounded-tr-none">
-                    <Image
+                    {/* <Image
                       src={product.image || "/placeholder.svg"}
                       alt={product.name}
                       width={200}
                       height={200}
                       className="h-full w-full object-cover"
-                    />
+                    /> */}
+                    <Shirt className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-120 transition-all" />
                     {product.isNew && (
                       <div className="absolute left-4 top-4 rounded-full bg-primary px-2 py-1 text-xs font-medium text-primary-foreground">
                         New

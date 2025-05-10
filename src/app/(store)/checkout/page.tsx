@@ -22,7 +22,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ArrowLeft, CreditCard, Check, Shirt } from "lucide-react";
+import {
+  ArrowLeft,
+  CreditCard,
+  Check,
+  Shirt,
+  ChevronRight,
+} from "lucide-react";
 import { useCart } from "@/lib/store";
 
 export default function CheckoutPage() {
@@ -50,6 +56,16 @@ export default function CheckoutPage() {
   if (items.length === 0) {
     return (
       <div className="container mx-auto max-w-6xl py-12">
+        <div className="mb-8 flex flex-wrap items-center gap-2">
+          <Link
+            href="/"
+            className="text-sm text-muted-foreground hover:text-foreground"
+          >
+            Home
+          </Link>
+          <ChevronRight className="h-4 w-4 text-muted-foreground" />
+          <span className="font-medium">Checkout</span>
+        </div>
         <h1 className="text-3xl font-bold">Checkout</h1>
         <div className="mt-12 flex flex-col items-center justify-center space-y-6 py-12">
           <div className="rounded-full bg-muted p-8">
@@ -69,6 +85,16 @@ export default function CheckoutPage() {
 
   return (
     <div className="container mx-auto max-w-6xl py-12">
+      <div className="mb-8 flex flex-wrap items-center gap-2">
+        <Link
+          href="/"
+          className="text-sm text-muted-foreground hover:text-foreground"
+        >
+          Home
+        </Link>
+        <ChevronRight className="h-4 w-4 text-muted-foreground" />
+        <span className="font-medium">Checkout</span>
+      </div>
       <div className="mb-8">
         <Link
           href="/cart"
