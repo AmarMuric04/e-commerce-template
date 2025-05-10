@@ -352,7 +352,7 @@ export default function CheckoutPage() {
                             key={item.id}
                             className="flex items-center gap-3"
                           >
-                            <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border">
+                            <div className="h-16 w-16 flex-shrink-0 overflow-hidden rounded-md border grid place-items-center">
                               {/* <Image
                                 src={item.images[0].url || "/placeholder.svg"}
                                 alt={item.name}
@@ -360,7 +360,7 @@ export default function CheckoutPage() {
                                 height={64}
                                 className="h-full w-full object-cover"
                               /> */}
-                              <Shirt className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:scale-120 transition-all" />
+                              <Shirt className="group-hover:scale-120 transition-all" />
                             </div>
                             <div className="flex-1">
                               <h4 className="text-sm font-medium">
