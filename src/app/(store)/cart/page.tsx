@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -13,6 +13,7 @@ import {
   Plus,
   Minus,
   RefreshCw,
+  Shirt,
 } from "lucide-react";
 import { useCart } from "@/lib/store";
 
@@ -76,14 +77,15 @@ export default function CartPage() {
               <div className="divide-y">
                 {items.map((item) => (
                   <div key={item.id} className="flex py-6">
-                    <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border">
-                      <Image
-                        src={item.image || "/placeholder.svg"}
+                    <div className="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border grid place-items-center">
+                      {/* <Image
+                        src={item.images[0].url || "/placeholder.svg"}
                         alt={item.name}
                         width={96}
                         height={96}
                         className="h-full w-full object-cover"
-                      />
+                      /> */}
+                      <Shirt className="group-hover:scale-120 transition-all" />
                     </div>
 
                     <div className="ml-4 flex flex-1 flex-col">
