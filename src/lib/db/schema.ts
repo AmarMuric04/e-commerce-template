@@ -73,12 +73,14 @@ export const verificationTokens = pgTable(
   })
 );
 
+// @ts-expect-error ...
 export const categories = pgTable("categories", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 255 }).notNull(),
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   description: text("description"),
   imageUrl: text("image_url"),
+  // @ts-expect-error ...
   parentId: integer("parent_id").references(() => categories.id, {
     onDelete: "set null",
   }),

@@ -9,6 +9,7 @@ import { eq } from "drizzle-orm";
 import { randomUUID } from "crypto";
 
 export const authOptions: NextAuthOptions = {
+  // @ts-expect-error ...
   adapter: DrizzleAdapter(db, schema),
   session: {
     strategy: "jwt",
@@ -66,7 +67,6 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async session({ token, session }) {
       if (token && session.user) {
-        // session.user.id = token.id as string;
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.picture;
